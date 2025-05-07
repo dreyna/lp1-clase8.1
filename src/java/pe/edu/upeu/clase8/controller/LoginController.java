@@ -10,13 +10,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pe.edu.upeu.clase8.dao.IUsuario;
+import pe.edu.upeu.clase8.daoImpl.UsuarioDaoImpl;
 
 /**
  *
  * @author docente.fia
  */
 public class LoginController extends HttpServlet {
-
+private IUsuario iusu = new UsuarioDaoImpl();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,7 +34,7 @@ public class LoginController extends HttpServlet {
         PrintWriter out = response.getWriter();
         String correo = request.getParameter("correo");
         String pass = request.getParameter("password");
-        if(correo.equals("david@gmail.com") && pass.equals("123")){
+        if(iusu.validar(correo, pass)==1){
             response.sendRedirect("main.jsp");
         }else{
             out.println("Datos incorrectos");
